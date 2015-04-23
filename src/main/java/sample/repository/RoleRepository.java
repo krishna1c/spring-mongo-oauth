@@ -6,4 +6,5 @@ import sample.domain.Role;
 
 public interface RoleRepository extends MongoRepository<Role, String> {
 	public Role findByRoleId(Long roleId);
+	public Role findByIsDefault(Boolean isDefault);
 }

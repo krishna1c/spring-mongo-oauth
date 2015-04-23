@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import sample.domain.User;
+import sample.repository.RoleRepository;
 import sample.repository.UserRepository;
 import sample.service.CounterService;
 
@@ -24,6 +25,8 @@ public class UserRestController {
 	private UserRepository repo;
 	@Autowired
 	private CounterService counter;
+	@Autowired
+	private RoleRepository role;
 
 	@RequestMapping(method=RequestMethod.GET)
 	public List<User> getAll() {
@@ -38,6 +41,7 @@ public class UserRestController {
 	@RequestMapping(method=RequestMethod.POST)
 	public User create(@RequestBody User user) {
 		user.setUserId(counter.getNextUserIdSequence());
+		user.setRoleId(role.findByIsDefault(true).getRoleId());
 		return repo.save(user);
 	}
 
