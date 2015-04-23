@@ -5,6 +5,8 @@ import java.util.List;
 import sample.exception.RestPreconditions;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +44,9 @@ public class UserRestController {
 	public User create(@RequestBody User user) {
 		user.setUserId(counter.getNextUserIdSequence());
 		user.setRoleId(role.findByIsDefault(true).getRoleId());
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(hashedPassword);
 		return repo.save(user);
 	}
 
