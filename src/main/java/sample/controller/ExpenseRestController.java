@@ -69,7 +69,7 @@ public class ExpenseRestController {
 	public Expense update(@AuthenticationPrincipal @PathVariable Long id, @PathVariable Long userId, @RequestBody ExpenseEntry entry) {
 		Expense update = RestPreconditions.checkFound(repo.findByExpenseId(id));
 		if (userId == update.getUserId()) {
-			update.setDesciption(entry.getDesciption());
+			update.setDescription(entry.getDescription());
 			update.setAmount(entry.getAmount());
 			try {
 				update.setDate(DateUtil.getDate(entry.getDate()));

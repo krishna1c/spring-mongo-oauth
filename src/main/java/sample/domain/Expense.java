@@ -18,7 +18,7 @@ public class Expense extends BaseEntity {
 	
 	@Indexed
 	private Long expenseId;
-	private String desciption;
+	private String description;
 	private BigDecimal amount;
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@JsonFormat
@@ -38,7 +38,7 @@ public class Expense extends BaseEntity {
 	}
 	
 	public Expense(ExpenseEntry entry) throws ParseException {
-		this.desciption = entry.getDesciption();
+		this.description = entry.getDescription();
 		this.amount = entry.getAmount();
 		this.date = DateUtil.getDate(entry.getDate());
 	}
@@ -48,12 +48,6 @@ public class Expense extends BaseEntity {
 	}
 	public void setExpenseId(Long expenseId) {
 		this.expenseId = expenseId;
-	}
-	public String getDesciption() {
-		return desciption;
-	}
-	public void setDesciption(String desciption) {
-		this.desciption = desciption;
 	}
 	public BigDecimal getAmount() {
 		return amount;
@@ -72,5 +66,11 @@ public class Expense extends BaseEntity {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

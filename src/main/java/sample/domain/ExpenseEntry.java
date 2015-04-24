@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 
 public class ExpenseEntry {
 
-	private String desciption;
+	private String description;
 	private BigDecimal amount;
 	private String date;
 	
-	public String getDesciption() {
-		return desciption;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesciption(String desciption) {
-		this.desciption = desciption;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public BigDecimal getAmount() {
 		return amount;
