@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sample.domain.Expense;
 import sample.domain.ExpenseEntry;
+import sample.domain.ExpenseSummary;
 import sample.domain.util.DateUtil;
 import sample.exception.MyResourceNotFoundException;
 import sample.exception.RestPreconditions;
 import sample.repository.ExpenseRepository;
 import sample.service.CounterService;
+import sample.service.ExpenseService;
 
 @RestController
 @RequestMapping("/users/{userId}/expenses")
@@ -27,6 +29,8 @@ public class ExpenseRestController {
 	private ExpenseRepository repo;
 	@Autowired
 	private CounterService counter;
+	@Autowired
+	private ExpenseService service;
 
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Expense> getAll(@PathVariable Long userId) {
@@ -81,5 +85,10 @@ public class ExpenseRestController {
 		} else {
 			throw new MyResourceNotFoundException("The expense does not belong to the user "+userId);
 		}
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/summary")
+	public List<ExpenseSummary> getSummary(@PathVariable Long userId) {
+		return service.getUserSummary(userId);
 	}
 }

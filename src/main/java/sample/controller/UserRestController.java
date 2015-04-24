@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import sample.domain.ExpenseSummary;
 import sample.domain.User;
 import sample.domain.UserEntry;
 import sample.repository.RoleRepository;
 import sample.repository.UserRepository;
 import sample.service.CounterService;
+import sample.service.ExpenseService;
 
 @RestController
 @RequestMapping("/users")
@@ -30,6 +32,8 @@ public class UserRestController {
 	private CounterService counter;
 	@Autowired
 	private RoleRepository role;
+	@Autowired
+	private ExpenseService service;
 
 	@RequestMapping(method=RequestMethod.GET)
 	public List<User> getAll() {
@@ -71,6 +75,11 @@ public class UserRestController {
 			update.setPassword(hashedPassword);
 		}
 		return repo.save(update);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value = "/summaries")
+	public List<ExpenseSummary> getSummaries() {
+		return service.getSummaries();
 	}
 
 }
