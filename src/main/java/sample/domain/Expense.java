@@ -1,23 +1,47 @@
 package sample.domain;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Date;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import sample.domain.util.DateUtil;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Document(collection = "collection")
+@Document(collection = "expense")
 public class Expense extends BaseEntity {
 	
 	@Indexed
 	private Long expenseId;
 	private String desciption;
 	private BigDecimal amount;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@JsonFormat
+     (shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
 	private Date date;
 	@JsonIgnore
 	private Long userId;
+	
+	public Expense() {}
+	
+	public Expense(String id, Long expenseId, BigDecimal amount, Date date, Long userId) {
+		this.setId(id);
+		this.expenseId = expenseId;
+		this.amount = amount;
+		this.date = date;
+		this.userId = userId;
+	}
+	
+	public Expense(ExpenseEntry entry) throws ParseException {
+		this.desciption = entry.getDesciption();
+		this.amount = entry.getAmount();
+		this.date = DateUtil.getDate(entry.getDate());
+	}
 	
 	public Long getExpenseId() {
 		return expenseId;

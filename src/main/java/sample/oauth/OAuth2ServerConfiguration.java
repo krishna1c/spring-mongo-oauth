@@ -37,7 +37,7 @@ public class OAuth2ServerConfiguration {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/*").hasRole("ADMIN").antMatchers(HttpMethod.POST, "/*").hasRole("ADMIN").antMatchers(HttpMethod.PUT, "/*").authenticated();
+			http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN").antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN").antMatchers(HttpMethod.PUT, "/**").authenticated();
 		}
 
 	}

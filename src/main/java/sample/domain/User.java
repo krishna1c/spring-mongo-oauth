@@ -21,6 +21,15 @@ public class User extends BaseEntity {
 	
 	public User() {}
 	
+	public User(UserEntry entry) {
+		super();
+		this.firstName = entry.getFirstName();
+		this.lastName = entry.getLastName();
+		this.email = entry.getEmail();
+		this.password = entry.getPassword();
+		this.username = entry.getUsername();
+	}
+	
 	public User(String id, Long userId, String firstName, String lastName, String email,
 			String password, String username, Long roleId) {
 		super();

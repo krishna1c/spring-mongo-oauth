@@ -1,7 +1,9 @@
 package sample.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
+@Document(collection = "role")
 public class Role extends BaseEntity implements GrantedAuthority {
 
 	private static final long serialVersionUID = 1L;

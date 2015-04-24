@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import sample.domain.User;
+import sample.domain.UserEntry;
 import sample.repository.RoleRepository;
 import sample.repository.UserRepository;
 import sample.service.CounterService;
@@ -41,7 +42,8 @@ public class UserRestController {
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public User create(@RequestBody User user) {
+	public User create(@AuthenticationPrincipal @RequestBody UserEntry entry) {
+		User user = new User(entry);
 		user.setUserId(counter.getNextUserIdSequence());
 		user.setRoleId(role.findByIsDefault(true).getRoleId());
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -57,12 +59,17 @@ public class UserRestController {
 	}
 
 	@RequestMapping(method=RequestMethod.PUT, value="{id}")
-	public User update(@PathVariable Long id, @RequestBody User user) {
+	public User update(@AuthenticationPrincipal @PathVariable Long id, @RequestBody UserEntry entry) {
 		User update = RestPreconditions.checkFound(repo.findByUserId(id));
-		update.setEmail(user.getEmail());
-		update.setFirstName(user.getFirstName());
-		update.setLastName(user.getLastName());
-		update.setUsername(user.getUsername());
+		update.setEmail(entry.getEmail());
+		update.setFirstName(entry.getFirstName());
+		update.setLastName(entry.getLastName());
+		update.setUsername(entry.getUsername());
+		if (entry.getPassword() != "") {
+			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(entry.getPassword());
+			update.setPassword(hashedPassword);
+		}
 		return repo.save(update);
 	}
 

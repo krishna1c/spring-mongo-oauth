@@ -19,6 +19,8 @@ public final class InitializationService implements ApplicationListener<ContextR
 	private UserRepository userRepo;
 	@Autowired
 	private RoleRepository roleRepo;
+	@Autowired
+	private CounterService counter;
 	
 	@Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -30,7 +32,7 @@ public final class InitializationService implements ApplicationListener<ContextR
 		if (userRepo.findAll().size() == 0) {
 			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String hashedPassword = passwordEncoder.encode("123456");
-			userRepo.save(new User(1L, "admin", "admin", "admin@admin.com", hashedPassword, "admin", 2L));
+			userRepo.save(new User(counter.getNextUserIdSequence(), "admin", "admin", "admin@admin.com", hashedPassword, "admin", 2L));
 		}
     }
 
