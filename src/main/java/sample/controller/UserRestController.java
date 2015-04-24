@@ -77,9 +77,9 @@ public class UserRestController {
 		return repo.save(update);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value = "/summaries")
+	@RequestMapping(method=RequestMethod.GET, value = "/summary")
 	public List<ExpenseSummary> getSummaries() {
-		return service.getSummaries();
+		return service.getSummary();
 	}
 
 }

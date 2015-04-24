@@ -20,33 +20,17 @@ public class ExpenseService {
 	private ExpenseRepository repo;
 
 	public List<ExpenseSummary> getUserSummary(Long userId) {
-		List<ExpenseSummary> summaries = new ArrayList<ExpenseSummary>();
 		List<Expense> expenses = repo.findByUserId(userId, new Sort(Sort.Direction.ASC, "date"));
-
-		Calendar calendar = Calendar.getInstance();
-		Calendar targetCalendar = Calendar.getInstance();
-
-		if (expenses.size() > 0) {
-			calendar.setTime(expenses.get(0).getDate());
-			ExpenseSummary summary = new ExpenseSummary();
-			for (Expense expense : expenses) {
-				targetCalendar.setTime(expense.getDate());
-
-				if (!isSameWeek(calendar, targetCalendar)) {
-					summary = initAndSaveSummary(summary, summaries);
-					calendar.setTime(expense.getDate());
-				}
-				updateSummary(summary, expense);
-			}
-			initAndSaveSummary(summary, summaries);
-		}
-
-		return summaries;
+		return getSummary(expenses);
 	}
 	
-	public List<ExpenseSummary> getSummaries() {
-		List<ExpenseSummary> summaries = new ArrayList<ExpenseSummary>();
+	public List<ExpenseSummary> getSummary() {
 		List<Expense> expenses = repo.findAll(new Sort(Sort.Direction.ASC, "date"));
+		return getSummary(expenses);
+	}
+	
+	public List<ExpenseSummary> getSummary(List<Expense> expenses) {
+		List<ExpenseSummary> summaries = new ArrayList<ExpenseSummary>();
 
 		Calendar calendar = Calendar.getInstance();
 		Calendar targetCalendar = Calendar.getInstance();
