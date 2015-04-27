@@ -7,6 +7,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import sample.domain.Expense;
 
+/**
+ * Mongo repository for the expenses
+ * @author pmincz
+ *
+ */
 public interface ExpenseRepository extends MongoRepository<Expense, String> {
 	public List<Expense> findByUserId(Long userId);
 	public List<Expense> findByUserId(Long userId, Sort sort);

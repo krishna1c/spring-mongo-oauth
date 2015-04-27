@@ -5,6 +5,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * User entity
+ * @author pmincz
+ *
+ */
 @Document(collection = "user")
 public class User extends BaseEntity {
 	

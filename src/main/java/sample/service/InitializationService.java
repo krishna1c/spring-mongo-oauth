@@ -17,6 +17,12 @@ import sample.repository.ExpenseRepository;
 import sample.repository.RoleRepository;
 import sample.repository.UserRepository;
 
+/**
+ * Initialization Service
+ * Insert the roles, admin user and one expense if each collection is empty
+ * @author pmincz
+ *
+ */
 @Component
 public final class InitializationService implements ApplicationListener<ContextRefreshedEvent> {
 	

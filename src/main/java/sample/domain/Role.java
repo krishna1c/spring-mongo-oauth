@@ -3,6 +3,11 @@ package sample.domain;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * Role entity
+ * @author pmincz
+ *
+ */
 @Document(collection = "role")
 public class Role extends BaseEntity implements GrantedAuthority {
 

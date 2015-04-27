@@ -21,6 +21,11 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 import sample.service.UserService;
 
+/**
+ * OAuth configuration
+ * @author pmincz
+ *
+ */
 @Configuration
 public class OAuth2ServerConfiguration {
 
@@ -35,6 +40,9 @@ public class OAuth2ServerConfiguration {
 			resources.resourceId(RESOURCE_ID);
 		}
 
+		/**
+		 * Configure the rest services that need OAuth with regular expressions
+		 */
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN").antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN").antMatchers(HttpMethod.PUT, "/**").authenticated();
@@ -42,6 +50,11 @@ public class OAuth2ServerConfiguration {
 
 	}
 
+	/**
+	 * Configuration for get the access token and the refresh token
+	 * @author pmincz
+	 *
+	 */
 	@Configuration
 	@EnableAuthorizationServer
 	protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {

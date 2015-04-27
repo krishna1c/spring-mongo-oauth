@@ -1,5 +1,10 @@
 package sample.exception;
 
+/**
+ * Exception for API
+ * @author pmincz
+ *
+ */
 @SuppressWarnings("serial")
 public final class MyResourceNotFoundException extends RuntimeException {
 

@@ -1,5 +1,10 @@
 package sample.domain;
 
+/**
+ * User entry for the rest services
+ * @author pmincz
+ *
+ */
 public class UserEntry {
 	
 	private String firstName;

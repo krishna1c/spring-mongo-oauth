@@ -25,6 +25,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import sample.Boot;
 
+/**
+ * Abstract entity for tests
+ * @author pmincz
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = Boot.class)

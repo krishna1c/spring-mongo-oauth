@@ -3,6 +3,11 @@ package sample;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * 
+ * @author pmincz
+ *	Spring Boot
+ */
 @SpringBootApplication
 public class Boot { 
 	

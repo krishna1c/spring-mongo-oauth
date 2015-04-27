@@ -21,6 +21,11 @@ import sample.repository.ExpenseRepository;
 import sample.service.CounterService;
 import sample.service.ExpenseService;
 
+/**
+ * Expense Rest Controller
+ * @author pmincz
+ *
+ */
 @RestController
 @RequestMapping("/users/{userId}/expenses")
 public class ExpenseRestController {
@@ -32,11 +37,22 @@ public class ExpenseRestController {
 	@Autowired
 	private ExpenseService service;
 
+	/**
+	 * Get all the expense by userId
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Expense> getAll(@PathVariable Long userId) {
 		return repo.findByUserId(userId);
 	}
 	
+	/**
+	 * Get expense by userId and expenseId
+	 * @param userId
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
 	public Expense getExpense(@PathVariable Long userId, @PathVariable Long id) {
 		Expense expense = RestPreconditions.checkFound(repo.findByExpenseId(id));
@@ -46,6 +62,12 @@ public class ExpenseRestController {
 		return expense;
 	}
 
+	/**
+	 * Create expense based on userId and expense entry
+	 * @param userId
+	 * @param entry
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public Expense create(@AuthenticationPrincipal @PathVariable Long userId, @RequestBody ExpenseEntry entry) {
 		Expense expense;
@@ -59,6 +81,11 @@ public class ExpenseRestController {
 		return repo.save(expense);
 	}
 
+	/**
+	 * Delete expense by userId and expenseId
+	 * @param id
+	 * @param userId
+	 */
 	@RequestMapping(method=RequestMethod.DELETE, value="/{id}")
 	public void delete(@AuthenticationPrincipal @PathVariable Long id, @PathVariable Long userId) {
 		Expense expense = RestPreconditions.checkFound(repo.findByExpenseId(id));
@@ -69,6 +96,13 @@ public class ExpenseRestController {
 		}
 	}
 
+	/**
+	 * Update expense by userId and entry
+	 * @param id
+	 * @param userId
+	 * @param entry
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.PUT, value="/{id}")
 	public Expense update(@AuthenticationPrincipal @PathVariable Long id, @PathVariable Long userId, @RequestBody ExpenseEntry entry) {
 		Expense update = RestPreconditions.checkFound(repo.findByExpenseId(id));
@@ -87,6 +121,11 @@ public class ExpenseRestController {
 		}
 	}
 	
+	/**
+	 * Get expense summary by userId
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET, value="/summary")
 	public List<ExpenseSummary> getSummary(@PathVariable Long userId) {
 		return service.getUserSummary(userId);

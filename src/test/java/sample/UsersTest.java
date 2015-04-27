@@ -15,6 +15,11 @@ import sample.repository.UserRepository;
 import sample.util.AbstractRestTest;
 import sample.util.IntegrationTestUtil;
 
+/**
+ * Users tests
+ * @author pmincz
+ *
+ */
 public class UsersTest extends AbstractRestTest {
 	
 	@Autowired

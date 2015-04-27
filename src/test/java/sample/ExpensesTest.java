@@ -21,6 +21,11 @@ import sample.repository.UserRepository;
 import sample.util.AbstractRestTest;
 import sample.util.IntegrationTestUtil;
 
+/**
+ * Expense tests
+ * @author pmincz
+ *
+ */
 public class ExpensesTest extends AbstractRestTest {
 	
 	@InjectMocks

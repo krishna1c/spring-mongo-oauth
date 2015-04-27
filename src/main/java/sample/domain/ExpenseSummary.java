@@ -8,6 +8,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * Expense weekly summary entity
+ * @author pmincz
+ *
+ */
 public class ExpenseSummary {
 
 	private BigDecimal total;

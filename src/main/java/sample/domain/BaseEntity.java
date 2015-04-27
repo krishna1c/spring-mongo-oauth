@@ -5,6 +5,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Base Entity with id for mongo
+ * @author pmincz
+ *
+ */
 @Document
 public abstract class BaseEntity {
 	@JsonIgnore

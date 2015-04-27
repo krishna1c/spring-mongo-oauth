@@ -2,6 +2,11 @@ package sample.domain;
 
 import java.math.BigDecimal;
 
+/**
+ * Expense entry for the rest services
+ * @author pmincz
+ *
+ */
 public class ExpenseEntry {
 
 	private String description;

@@ -13,22 +13,42 @@ import sample.domain.Expense;
 import sample.domain.ExpenseSummary;
 import sample.repository.ExpenseRepository;
 
+/**
+ * Expense service
+ * @author pmincz
+ *
+ */
 @Service
 public class ExpenseService {
 
 	@Autowired
 	private ExpenseRepository repo;
 
+	/**
+	 * Get user summary by userId
+	 * @param userId
+	 * @return
+	 */
 	public List<ExpenseSummary> getUserSummary(Long userId) {
 		List<Expense> expenses = repo.findByUserId(userId, new Sort(Sort.Direction.ASC, "date"));
 		return getSummary(expenses);
 	}
 	
+	/**
+	 * Get summary without filtering by user
+	 * @return
+	 */
 	public List<ExpenseSummary> getSummary() {
 		List<Expense> expenses = repo.findAll(new Sort(Sort.Direction.ASC, "date"));
 		return getSummary(expenses);
 	}
 	
+	/**
+	 * Get the summary based in a collection of expenses
+	 * If the expense corresponds to the same week count as the same summary
+	 * @param expenses
+	 * @return
+	 */
 	public List<ExpenseSummary> getSummary(List<Expense> expenses) {
 		List<ExpenseSummary> summaries = new ArrayList<ExpenseSummary>();
 
@@ -53,6 +73,12 @@ public class ExpenseService {
 		return summaries;
 	}
 	
+	/**
+	 * Is the same week?
+	 * @param calendar
+	 * @param targetCalendar
+	 * @return
+	 */
 	public Boolean isSameWeek(Calendar calendar, Calendar targetCalendar) {
 		int targetWeek = targetCalendar.get(Calendar.WEEK_OF_YEAR);
 		int targetYear = targetCalendar.get(Calendar.YEAR);
@@ -62,6 +88,11 @@ public class ExpenseService {
 		return (targetWeek == week && year == targetYear);
 	}
 
+	/**
+	 * Update the summary with the expense
+	 * @param summary
+	 * @param expense
+	 */
 	public void updateSummary(ExpenseSummary summary, Expense expense) {
 		//count++
 		summary.setCount(summary.getCount()+1);
@@ -73,11 +104,21 @@ public class ExpenseService {
 		summary.setEnd(expense.getDate());
 	}
 
+	/**
+	 * Set average on the summary
+	 * @param summary
+	 */
 	public void setAverage(ExpenseSummary summary) {
 		BigDecimal result = summary.getTotal().divide(new BigDecimal(summary.getCount()));
 		summary.setAverage(result);
 	}
 	
+	/**
+	 * Set average and add the summary to the final list
+	 * @param summary
+	 * @param summaries
+	 * @return
+	 */
 	public ExpenseSummary initAndSaveSummary(ExpenseSummary summary, List<ExpenseSummary> summaries) {
 		setAverage(summary);
 		summaries.add(summary);

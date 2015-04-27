@@ -1,5 +1,10 @@
 package sample.exception;
 
+/**
+ * Conditions to use in the Rest Controllers
+ * @author pmincz
+ *
+ */
 public final class RestPreconditions {
 
     private RestPreconditions() {

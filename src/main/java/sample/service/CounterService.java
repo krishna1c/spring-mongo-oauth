@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import sample.domain.Counter;
 import sample.repository.CounterRepository;
 
+/**
+ * Counter service
+ * @author pmincz
+ *
+ */
 @Service
 public class CounterService {
 	public static final String USER_ID_SEQUENCE_NAME = "user_id";
@@ -20,14 +25,27 @@ public class CounterService {
 	@Autowired
 	private CounterRepository repo;
 
+	/**
+	 * Get the next userId based on the sequence in mongo
+	 * @return
+	 */
 	public long getNextUserIdSequence() {
 		return increaseCounter(USER_ID_SEQUENCE_NAME);
 	}
 	
+	/**
+	 * Get the next expenseID based on the sequence in mongo
+	 * @return
+	 */
 	public long getNextExpenseIdSequence() {
 		return increaseCounter(EXPENSE_ID_SEQUENCE_NAME);
 	}
 
+	/**
+	 * Increase and return the counter
+	 * @param counterName
+	 * @return
+	 */
 	private long increaseCounter(String counterName){
 		try {
 			Query query = new Query(Criteria.where("name").is(counterName));

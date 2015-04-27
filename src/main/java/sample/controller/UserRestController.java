@@ -22,6 +22,11 @@ import sample.repository.UserRepository;
 import sample.service.CounterService;
 import sample.service.ExpenseService;
 
+/**
+ * User Rest Controller
+ * @author pmincz
+ *
+ */
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
@@ -35,16 +40,30 @@ public class UserRestController {
 	@Autowired
 	private ExpenseService service;
 
+	/**
+	 * Get all the users
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public List<User> getAll() {
 		return repo.findAll();
 	}
 	
+	/**
+	 * Get user by userId
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET, value="{id}")
 	public User getUser(@PathVariable Long id) {
 		return RestPreconditions.checkFound(repo.findByUserId(id));
 	}
 
+	/**
+	 * Create user by user entry
+	 * @param entry
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public User create(@AuthenticationPrincipal @RequestBody UserEntry entry) {
 		User user = new User(entry);
@@ -56,12 +75,22 @@ public class UserRestController {
 		return repo.save(user);
 	}
 
+	/**
+	 * Delete user by userId
+	 * @param id
+	 */
 	@RequestMapping(method=RequestMethod.DELETE, value="{id}")
 	public void delete(@AuthenticationPrincipal @PathVariable Long id) {
 		User user = RestPreconditions.checkFound(repo.findByUserId(id));
 		repo.delete(user.getId());
 	}
 
+	/**
+	 * Update user by userId
+	 * @param id
+	 * @param entry
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.PUT, value="{id}")
 	public User update(@AuthenticationPrincipal @PathVariable Long id, @RequestBody UserEntry entry) {
 		User update = RestPreconditions.checkFound(repo.findByUserId(id));
@@ -77,6 +106,10 @@ public class UserRestController {
 		return repo.save(update);
 	}
 	
+	/**
+	 * Get all the users summary
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET, value = "/summary")
 	public List<ExpenseSummary> getSummaries() {
 		return service.getSummary();

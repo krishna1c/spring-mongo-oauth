@@ -2,6 +2,11 @@ package sample.domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Counter entity
+ * @author pmincz
+ *
+ */
 @Document(collection = "counter")
 public class Counter extends BaseEntity {
 	

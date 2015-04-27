@@ -13,6 +13,11 @@ import sample.domain.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Expense entity
+ * @author pmincz
+ *
+ */
 @Document(collection = "expense")
 public class Expense extends BaseEntity {
 	

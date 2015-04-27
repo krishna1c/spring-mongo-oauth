@@ -14,7 +14,11 @@ import sample.domain.UserEntry;
 import sample.util.AbstractRestTest;
 import sample.util.IntegrationTestUtil;
 
-
+/**
+ * Security tests
+ * @author pmincz
+ *
+ */
 public class SpringSecurityTest extends AbstractRestTest {
 	
 	@InjectMocks
